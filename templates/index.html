@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Conselhos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Conselhos</h1>
+        <div class="card">
+            <p id="advice-text">Clique no botão para receber sabedoria jovem padawan!...</p>
+        </div>
+        <button onclick="novoConselho()">Novo Conselho</button>
+    </div>
+
+    <script>
+        async function novoConselho() {
+            const btn = document.querySelector('button');
+            btn.innerText = "Consultando...";
+            const response = await fetch('/get_advice');
+            const data = await response.json();
+            document.getElementById('advice-text').innerText = data.advice;
+            btn.innerText = "Novo Conselho";
+        }
+    </script>
+</body>
+</html>
